@@ -21,8 +21,21 @@ app.get('/', function(req, res) {
 
 app.get('/greetings/:name', function(req, res) {
     res.send(`Lovely to see you, ${req.params.name}!`)
-
 })
+
+app.get('/roll/:num', function(req, res) {
+    console.log(req.params.num)
+    let getRandomInt 
+    getRandomInt = function(num) {
+        return Math.floor(Math.random() * num);
+      }
+    if (req.params.num === ``){
+        res.send(`You have not picked a number`)
+    } else {
+        res.send(`You have rolled a ${getRandomInt}`)
+    }})
+
+
 
 
 // tell the app to listen on port 3000
