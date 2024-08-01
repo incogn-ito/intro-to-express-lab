@@ -1,7 +1,10 @@
 // import modules
 
 import express from 'express'
+
 import { collectibles } from './data.js'
+
+import { shoes } from './shoes.js'
 
 // create Express app
 
@@ -10,9 +13,7 @@ const app = express()
 // configure the app (app.set)
 
 
-
 // mount Middleware (app.use)
-
 
 
 // mount routes
@@ -63,9 +64,41 @@ app.get('/collectibles/:item', (req, res) => {
   }
 })
 
-//Ex 4
+/* Ex 4
 
+const shoes = [
+      { name: "Birkenstocks", price: 50, type: "sandal" },
+      { name: "Air Jordans", price: 500, type: "sneaker" },
+      { name: "Air Mahomeses", price: 501, type: "sneaker" },
+      { name: "Utility Boots", price: 20, type: "boot" },
+      { name: "Velcro Sandals", price: 15, type: "sandal" },
+      { name: "Jet Boots", price: 1000, type: "boot" },
+      { name: "Fifty-Inch Heels", price: 175, type: "heel" }
+  ];
 
+  Query Parameters:
+min-price: Excludes shoes below this price.
+max-price: Excludes shoes above this price.
+type: Shows only shoes of the specified type.
+No parameters: Responds with the full list of shoes.
+*/
+
+app.get('/shoes', (req, res) => { 
+  // Accessing query parameters from the request
+  if (req.query['min-price'] && req.query['max-price'] && req.query.type) {
+    let minPrice = req.query['min-price']
+    let maxPrice = req.query['max-price']
+    let shoeType = req.query.type
+    let filteredShoes = shoes.filter((shoe) => {
+      return (shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type === shoe.type)
+      })
+      res.send(filteredShoes)
+    } else {
+      res.send(shoes)
+    }
+  })
+
+  
 // tell the app to listen on port 3000
 
 app.listen(3000, function() {

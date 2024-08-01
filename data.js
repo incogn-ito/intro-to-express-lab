@@ -4,6 +4,7 @@ let collectibles = [
     { name: 'vintage 1970s yogurt SOLD AS-IS', price: 0.99 }
   ]
 
+
   export {
     collectibles
   }
