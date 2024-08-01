@@ -83,22 +83,40 @@ type: Shows only shoes of the specified type.
 No parameters: Responds with the full list of shoes.
 */
 
-app.get('/shoes', (req, res) => { 
-  // Accessing query parameters from the request
-  if (req.query['min-price'] && req.query['max-price'] && req.query.type) {
-    let minPrice = req.query['min-price']
-    let maxPrice = req.query['max-price']
-    let shoeType = req.query.type
-    let filteredShoes = shoes.filter((shoe) => {
-      return (shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type === shoe.type)
-      })
-      res.send(filteredShoes)
-    } else {
-      res.send(shoes)
-    }
-  })
+// app.get('/shoes', (req, res) => { 
+//   // Accessing query parameters from the request
+//   console.log(shoe)
+//   if (req.query['min-price'] && req.query['max-price'] && req.query.type) {
+//     let minPrice = req.query['min-price']
+//     let maxPrice = req.query['max-price']
+//     let shoeType = req.query.type
+//     console.log(minPrice, 'min-price')
+//     console.log(minPrice, 'min-price')
+//     let filteredShoes = shoes.filter((shoe) => {
+//       return (shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type === shoe.type)
+//       })
+//       res.send(filteredShoes)
+//     } else {
+//       res.send(shoes)
+//     }
+//   })  
 
+// My Answer above 
+// Answer from Ben below:
   
+app.get('/shoes', (req, res) => { 
+  console.log(shoes)
+  const minPrice = req.query['min-price'] ? req.query['min-price'] : 0
+  const maxPrice = req.query['max-price'] ? req.query['min-price'] : Infinity
+  const type = req.query.type ? req.query.type : ''
+  const filteredShoes = shoes.filter(shoe => {
+    return (shoe.price >= minPrice && shoe.price <= maxPrice && shoe.type === shoe.type)
+    })
+    res.send(filteredShoes)
+    console.log('banana')
+})
+  
+
 // tell the app to listen on port 3000
 
 app.listen(3000, function() {
